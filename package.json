@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "test": "bun test",
+    "test:e2e": "playwright test",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "clean": "rm -rf .next",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
@@ -22,6 +23,7 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^22.10.0",
     "@types/react": "^19.2.0",
