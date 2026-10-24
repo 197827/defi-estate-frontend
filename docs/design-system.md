@@ -15,7 +15,22 @@ Tokens are CSS custom properties in `src/app/globals.css`, exposed to Tailwind t
 | `--color-danger`                            | errors                            |
 | `--radius-card`                             | card corner radius                |
 
+## Theming
+
+The app ships two themes, dark (default) and light. Every token above is defined twice in `src/app/globals.css`: once on `:root` for dark and once under `[data-theme='light']` for light. Components never branch on the theme; they only use the token utilities, so both themes come for free.
+
+- Default: with no stored choice, the theme follows the OS via `prefers-color-scheme`.
+- Toggle: the header renders a `Sun` / `Moon` button (from `lucide-react`) that switches the theme and writes the choice to `localStorage`.
+- No flash: an inline script in the document head applies the stored (or OS) theme to `<html data-theme>` before first paint, so the wrong theme is never shown.
+
+Rules for contributors:
+
+- Any new token must get a light value under `[data-theme='light']` in the same change.
+- Never hardcode colors (hex, `rgb()`, named colors) in components; use token utilities so both themes stay correct.
+- Check new UI in both themes and keep text/background pairs at WCAG AA contrast.
+
 ## Components
+=======
 
 Shared components live in `src/components/ui`:
 

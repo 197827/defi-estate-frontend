@@ -12,7 +12,9 @@
     "test:e2e": "playwright test",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "clean": "rm -rf .next",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -28,6 +30,10 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
+    "@storybook/addon-a11y": "^8.6.0",
+    "@storybook/addon-essentials": "^8.6.0",
+    "@storybook/nextjs": "^8.6.0",
+    "@storybook/react": "^8.6.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^22.10.0",
     "@types/react": "^19.2.0",
@@ -35,6 +41,7 @@
     "bun-types": "latest",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.0.0",
+    "storybook": "^8.6.0",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.9.3",
     "prettier": "^3.4.0"

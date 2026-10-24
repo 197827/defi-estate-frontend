@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { MapPin } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { PropertyGallery } from '@/components/property/PropertyGallery';
 import { getProperty } from '@/services/api';
 import { formatBps, formatUsdCents, formatNumber } from '@/lib/format';
 import { getTokenSupply } from '@/lib/soroban';
@@ -26,6 +27,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
   const supply = p.tokenContractId ? await getTokenSupply(p.tokenContractId) : null;
 
+  const images = p.imageUrl ? [p.imageUrl] : [];
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -39,6 +42,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           })}
         </p>
       </div>
+      {images.length > 0 ? (
+        <PropertyGallery images={images} propertyName={p.name} />
+      ) : (
+        <div className="bg-muted/20 text-muted flex aspect-[16/9] w-full items-center justify-center rounded-lg border">
+          <span className="text-sm">{t('noImage')}</span>
+        </div>
+      )}
       <div className="grid gap-4 sm:grid-cols-4">
         {stats.map(([label, value]) => (
           <Card key={label}>
