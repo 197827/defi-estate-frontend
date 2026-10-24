@@ -21,6 +21,36 @@ Shared components live in `src/components/ui`:
 
 - `Button` with `primary` and `secondary` variants
 - `Card`
+- `Skeleton`
+
+### Skeleton
+
+`Skeleton` renders a placeholder block used while content is loading. It is purely decorative: it is hidden from assistive technology (`aria-hidden`) and marked with `role="presentation"`, so it should always be paired with a meaningful loading announcement elsewhere (for example the `loading.tsx` route files).
+
+Props:
+
+| Prop        | Type                  | Default | Description                                              |
+| ----------- | --------------------- | ------- | -------------------------------------------------------- |
+| `className` | `string`              | —       | Extra utility classes; use to set size, shape and layout |
+| `...props`  | `HTMLAttributes<HTMLDivElement>` | — | Any other `div` attributes are forwarded to the root element |
+
+Token usage:
+
+- Background: `bg-surface-raised` (never a raw color value)
+- Corner radius: `rounded-card` (from `--radius-card`)
+- Subtle pulse animation via `animate-pulse`
+
+Example:
+
+```tsx
+<Skeleton className="h-4 w-2/3" />
+<Skeleton className="h-48 w-full" />
+```
+
+Where it is used:
+
+- `src/app/properties/loading.tsx` — property list loading state
+- `src/app/properties/[id]/loading.tsx` — property detail loading state
 
 Icons come from `lucide-react` only. Decorative icons get `aria-hidden`.
 

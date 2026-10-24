@@ -23,3 +23,19 @@ export function listProperties(page = 1): Promise<Result<Paginated<Property>>> {
 export function getProperty(id: string): Promise<Result<Property>> {
   return request(`/properties/${encodeURIComponent(id)}`);
 }
+
+export async function createProperty(input: unknown): Promise<Result<Property>> {
+  try {
+    const res = await fetch(`${API_URL}/properties`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    });
+    const body = (await res.json()) as ApiResponse<Property>;
+    return body.success
+      ? { ok: true, data: body.data }
+      : { ok: false, message: body.error.message };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'Unknown error' };
+  }
+}

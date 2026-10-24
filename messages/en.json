@@ -1,0 +1,173 @@
+{
+  "Metadata": {
+    "title": "Defi Estate",
+    "description": "Invest in tokenized real estate on-chain"
+  },
+  "Header": {
+    "nav": {
+      "home": "Home",
+      "properties": "Properties",
+      "operator": "Operator"
+    },
+    "languageSwitcher": {
+      "label": "Language",
+      "en": "English",
+      "es": "Español"
+    },
+    "wallet": {
+      "connect": "Connect Wallet",
+      "connecting": "Connecting…",
+      "connected": "Connected",
+      "disconnect": "Disconnect",
+      "account": "Account",
+      "error": "Failed to connect wallet. Please try again."
+    }
+  },
+  "Home": {
+    "hero": {
+      "title": "Own a piece of the future",
+      "subtitle": "Invest in tokenized real estate with full transparency and liquidity.",
+      "cta": "Explore Properties"
+    },
+    "features": {
+      "title": "Why Defi Estate",
+      "items": {
+        "tokenized": {
+          "title": "Tokenized Ownership",
+          "description": "Each property is divided into on-chain tokens you can buy and sell."
+        },
+        "transparent": {
+          "title": "Full Transparency",
+          "description": "Every transaction and valuation is recorded on-chain."
+        },
+        "liquidity": {
+          "title": "Real Liquidity",
+          "description": "Trade your property tokens anytime on the marketplace."
+        }
+      }
+    }
+  },
+  "Properties": {
+    "title": "Properties",
+    "subtitle": "Browse available tokenized real estate",
+    "empty": "No properties available at the moment.",
+    "loading": "Loading properties…",
+    "error": "Failed to load properties. Please try again.",
+    "card": {
+      "price": "Price",
+      "apy": "APY",
+      "funded": "Funded",
+      "viewDetails": "View Details"
+    }
+  },
+  "PropertyDetail": {
+    "back": "Back to Properties",
+    "loading": "Loading property…",
+    "error": "Failed to load property. Please try again.",
+    "notFound": "Property not found.",
+    "labels": {
+      "price": "Price",
+      "apy": "Annual Percentage Yield",
+      "funded": "Funded",
+      "location": "Location",
+      "type": "Property Type",
+      "size": "Size",
+      "tokensAvailable": "Tokens Available",
+      "tokenPrice": "Token Price",
+      "totalSupply": "Total Supply",
+      "description": "Description"
+    },
+    "actions": {
+      "invest": "Invest",
+      "investing": "Investing…",
+      "investSuccess": "Investment successful.",
+      "investError": "Investment failed. Please try again."
+    }
+  },
+  "Operator": {
+    "title": "Operator",
+    "subtitle": "Register and manage tokenized properties",
+    "form": {
+      "name": {
+        "label": "Property Name",
+        "placeholder": "Enter property name"
+      },
+      "location": {
+        "label": "Location",
+        "placeholder": "Enter property location"
+      },
+      "type": {
+        "label": "Property Type",
+        "placeholder": "Select property type",
+        "options": {
+          "residential": "Residential",
+          "commercial": "Commercial",
+          "industrial": "Industrial",
+          "land": "Land"
+        }
+      },
+      "size": {
+        "label": "Size (m²)",
+        "placeholder": "Enter property size"
+      },
+      "price": {
+        "label": "Price",
+        "placeholder": "Enter property price"
+      },
+      "apy": {
+        "label": "APY (%)",
+        "placeholder": "Enter annual percentage yield"
+      },
+      "tokenPrice": {
+        "label": "Token Price",
+        "placeholder": "Enter token price"
+      },
+      "totalSupply": {
+        "label": "Total Supply",
+        "placeholder": "Enter total token supply"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Enter property description"
+      },
+      "submit": "Register Property",
+      "submitting": "Registering…",
+      "success": "Property registered successfully.",
+      "error": "Failed to register property. Please try again."
+    },
+    "validation": {
+      "nameRequired": "Property name is required.",
+      "locationRequired": "Location is required.",
+      "typeRequired": "Property type is required.",
+      "sizeRequired": "Size is required.",
+      "sizeInvalid": "Size must be a positive number.",
+      "priceRequired": "Price is required.",
+      "priceInvalid": "Price must be a positive number.",
+      "apyRequired": "APY is required.",
+      "apyInvalid": "APY must be a number between 0 and 100.",
+      "tokenPriceRequired": "Token price is required.",
+      "tokenPriceInvalid": "Token price must be a positive number.",
+      "totalSupplyRequired": "Total supply is required.",
+      "totalSupplyInvalid": "Total supply must be a positive integer.",
+      "descriptionRequired": "Description is required."
+    }
+  },
+  "Common": {
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again.",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close"
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. Please try again.",
+    "retry": "Try Again"
+  }
+}
