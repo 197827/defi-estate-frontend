@@ -18,6 +18,23 @@
   --radius-card: 1rem;
 }
 
+/*
+ * Light theme. Applied via [data-theme='light'] on <html>.
+ * Values chosen for WCAG AA contrast against their backgrounds.
+ */
+[data-theme='light'] {
+  --color-bg: #f7f9fc;
+  --color-surface: #ffffff;
+  --color-surface-raised: #eef2f7;
+  --color-border: #cbd5e1;
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-primary: #0f766e;
+  --color-primary-strong: #115e59;
+  --color-accent: #92400e;
+  --color-danger: #b91c1c;
+}
+
 @theme inline {
   --color-bg: var(--color-bg);
   --color-surface: var(--color-surface);

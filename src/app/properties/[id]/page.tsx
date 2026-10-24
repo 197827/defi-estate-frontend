@@ -4,6 +4,8 @@ import { getTranslations } from 'next-intl/server';
 import { MapPin } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { PropertyGallery } from '@/components/property/PropertyGallery';
+import { YieldCalculator } from '@/components/property/YieldCalculator';
 import { getProperty } from '@/services/api';
 import { formatBps, formatUsdCents, formatNumber } from '@/lib/format';
 import { getTokenSupply } from '@/lib/soroban';
@@ -17,10 +19,33 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const result = await getProperty(id);
-  if (!result.ok) return {};
+  if (!result.ok) {
+    return { title: 'Property not found' };
+  }
+  const p = result.data;
+  const title = `${p.name} — ${p.location.city}`;
+  const description = `${p.name} in ${p.location.city} with an expected yield of ${formatBps(
+    p.expectedYieldBps,
+  )}.`;
+  const url = `/properties/${id}`;
+  const images = [`${url}/opengraph-image`];
+
   return {
-    title: result.data.name,
-    description: result.data.description ?? undefined,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images,
+    },
   };
 }
 
@@ -41,6 +66,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
   const supply = p.tokenContractId ? await getTokenSupply(p.tokenContractId).catch(() => null) : null;
 
+  const images = p.imageUrl ? [p.imageUrl] : [];
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -54,6 +81,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           })}
         </p>
       </div>
+      {images.length > 0 ? (
+        <PropertyGallery images={images} propertyName={p.name} />
+      ) : (
+        <div className="bg-muted/20 text-muted flex aspect-[16/9] w-full items-center justify-center rounded-lg border">
+          <span className="text-sm">{t('noImage')}</span>
+        </div>
+      )}
       <div className="grid gap-4 sm:grid-cols-4">
         {stats.map(([label, value]) => (
           <Card key={label}>
@@ -72,6 +106,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           )}
         </Card>
       )}
+      <YieldCalculator
+        sharePriceUsdCents={p.sharePriceUsdCents}
+        expectedYieldBps={p.expectedYieldBps}
+        availableShares={p.totalShares}
+      />
       {p.description && <p className="text-muted max-w-3xl">{p.description}</p>}
     </div>
   );

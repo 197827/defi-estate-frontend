@@ -19,6 +19,7 @@ jobs:
       - run: bun run format:check
       - run: bun test
       - run: bun run build
+      - run: bun run build-storybook
 
   e2e:
     name: E2E Tests

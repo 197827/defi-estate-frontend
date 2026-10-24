@@ -7,9 +7,19 @@ import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { WalletProvider } from '@/components/wallet/WalletProvider';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'defi-estate',
   description: 'Own fractions of income-producing real estate on Stellar and earn rental yield.',
+  openGraph: {
+    siteName: 'defi-estate',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export function generateStaticParams() {
@@ -35,7 +45,14 @@ export default async function LocaleLayout({
   const t = await getTranslations('common');
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-screen antialiased">
         <a
           href="#main-content"

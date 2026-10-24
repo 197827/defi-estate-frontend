@@ -20,3 +20,20 @@ export interface Paginated<T> {
   pageSize: number;
   total: number;
 }
+
+export type TransactionHistoryType = 'mint' | 'transfer' | 'yield_claim';
+
+export interface TransactionHistoryItem {
+  id: string;
+  /** ISO 8601 timestamp of the transaction */
+  timestamp: string;
+  propertyId: string;
+  propertyName: string;
+  type: TransactionHistoryType;
+  /** Amount as a string to preserve precision */
+  amount: string;
+  txHash: string;
+  explorerUrl: string;
+}
+
+export type TransactionHistoryResponse = Paginated<TransactionHistoryItem>;

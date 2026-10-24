@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { Landmark, Menu, X } from 'lucide-react';
+import { Landmark, Menu, Moon, Sun, X } from 'lucide-react';
 import { ConnectWallet } from '@/components/wallet/ConnectWallet';
 
 const LOCALES = [
@@ -18,6 +18,23 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    const current = document.documentElement.dataset.theme;
+    setTheme(current === 'light' ? 'light' : 'dark');
+  }, []);
+
+  function toggleTheme() {
+    const next = theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      // Ignore storage errors (e.g. private mode); the theme still applies.
+    }
+    setTheme(next);
+  }
 
   function switchLocale(nextLocale: string) {
     if (nextLocale === locale) return;
@@ -104,6 +121,19 @@ export function Header() {
               ))}
             </select>
           </div>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="focus-visible:ring-primary text-muted hover:text-text inline-flex items-center justify-center rounded-md p-2 focus-visible:ring-2 focus-visible:outline-none"
+            aria-label={theme === 'light' ? t('switchToDark') : t('switchToLight')}
+          >
+            {theme === 'light' ? (
+              <Moon className="h-5 w-5" aria-hidden />
+            ) : (
+              <Sun className="h-5 w-5" aria-hidden />
+            )}
+          </button>
 
           <ConnectWallet />
         </nav>
