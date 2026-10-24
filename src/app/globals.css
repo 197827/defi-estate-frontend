@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens. Use these (via the Tailwind theme below) instead of hardcoded colors.
+ * Documented in docs/design-system.md.
+ */
+:root {
+  --color-bg: #0b0f14;
+  --color-surface: #121821;
+  --color-surface-raised: #1a2230;
+  --color-border: #253043;
+  --color-text: #e6edf5;
+  --color-text-muted: #8b98ab;
+  --color-primary: #3dd6a3;
+  --color-primary-strong: #22b386;
+  --color-accent: #f5b84b;
+  --color-danger: #f26d6d;
+  --radius-card: 1rem;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-border: var(--color-border);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-text-muted);
+  --color-primary: var(--color-primary);
+  --color-primary-strong: var(--color-primary-strong);
+  --color-accent: var(--color-accent);
+  --color-danger: var(--color-danger);
+  --radius-card: var(--radius-card);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
