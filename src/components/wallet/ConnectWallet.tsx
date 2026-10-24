@@ -5,15 +5,22 @@ import { Check, Copy, LogOut, Wallet } from 'lucide-react';
 import { isConnected, requestAccess } from '@stellar/freighter-api';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
+import { useToast } from '@/components/ui/Toast';
 import { shortenAddress } from '@/lib/format';
 import { useWallet } from '@/components/wallet/WalletProvider';
 
 export function ConnectWallet() {
   const t = useTranslations('wallet');
   const { address, connect, disconnect, error } = useWallet();
+  const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!error) return;
+    toast({ variant: 'error', title: error });
+  }, [error, toast]);
 
   useEffect(() => {
     if (!open) return;
@@ -60,7 +67,6 @@ export function ConnectWallet() {
 
   return (
     <div className="relative flex items-center gap-2" ref={containerRef}>
-      {error && <span className="text-danger hidden text-xs sm:inline">{error}</span>}
       {address ? (
         <>
           <Button

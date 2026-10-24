@@ -1,14 +1,53 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { MapPin } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { PropertyGallery } from '@/components/property/PropertyGallery';
+import { YieldCalculator } from '@/components/property/YieldCalculator';
 import { getProperty } from '@/services/api';
 import { formatBps, formatUsdCents, formatNumber } from '@/lib/format';
 import { getTokenSupply } from '@/lib/soroban';
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const result = await getProperty(id);
+  if (!result.ok) {
+    return { title: 'Property not found' };
+  }
+  const p = result.data;
+  const title = `${p.name} — ${p.location.city}`;
+  const description = `${p.name} in ${p.location.city} with an expected yield of ${formatBps(
+    p.expectedYieldBps,
+  )}.`;
+  const url = `/properties/${id}`;
+  const images = [`${url}/opengraph-image`];
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url,
+      images,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images,
+    },
+  };
+}
 
 export default async function PropertyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -67,6 +106,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           )}
         </Card>
       )}
+      <YieldCalculator
+        sharePriceUsdCents={p.sharePriceUsdCents}
+        expectedYieldBps={p.expectedYieldBps}
+        availableShares={p.totalShares}
+      />
       {p.description && <p className="text-muted max-w-3xl">{p.description}</p>}
     </div>
   );

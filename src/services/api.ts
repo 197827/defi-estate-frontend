@@ -1,4 +1,5 @@
 import type { ApiResponse, Paginated, Property } from '@/shared';
+import { env } from '@/lib/env';
 
 export type TransactionHistoryType = 'transfer' | 'mint' | 'yield_claim';
 
@@ -12,7 +13,7 @@ export interface TransactionHistoryItem {
   txHash: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+const API_URL = env.NEXT_PUBLIC_API_URL;
 
 export type Result<T> = { ok: true; data: T } | { ok: false; message: string };
 
@@ -75,6 +76,48 @@ export function getTransactionHistory(
   return request(
     `/portfolio/${encodeURIComponent(walletAddress)}/history?${params.toString()}`,
   );
+}
+
+export interface KycSubmission {
+  id: string;
+  investorId: string;
+  investorName?: string;
+  investorEmail?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  submittedAt: string;
+  note?: string;
+}
+
+export function listPendingKyc(): Promise<Result<Paginated<KycSubmission>>> {
+  return request('/operator/kyc?status=pending');
+}
+
+async function reviewKyc(
+  id: string,
+  action: 'approve' | 'reject',
+  note?: string,
+): Promise<Result<KycSubmission>> {
+  try {
+    const res = await fetch(`${API_URL}/operator/kyc/${encodeURIComponent(id)}/${action}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(note !== undefined && note !== '' ? { note } : {}),
+    });
+    const body = (await res.json()) as ApiResponse<KycSubmission>;
+    return body.success
+      ? { ok: true, data: body.data }
+      : { ok: false, message: body.error.message };
+  } catch (err) {
+    return { ok: false, message: err instanceof Error ? err.message : 'Unknown error' };
+  }
+}
+
+export function approveKyc(id: string, note?: string): Promise<Result<KycSubmission>> {
+  return reviewKyc(id, 'approve', note);
+}
+
+export function rejectKyc(id: string, note?: string): Promise<Result<KycSubmission>> {
+  return reviewKyc(id, 'reject', note);
 }
 
 export async function createProperty(input: unknown): Promise<Result<Property>> {
