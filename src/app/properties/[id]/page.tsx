@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { MapPin } from 'lucide-react';
@@ -8,6 +9,20 @@ import { formatBps, formatUsdCents, formatNumber } from '@/lib/format';
 import { getTokenSupply } from '@/lib/soroban';
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const result = await getProperty(id);
+  if (!result.ok) return {};
+  return {
+    title: result.data.name,
+    description: result.data.description ?? undefined,
+  };
+}
 
 export default async function PropertyPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -24,7 +39,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     [t('expectedYield'), formatBps(p.expectedYieldBps)],
   ];
 
-  const supply = p.tokenContractId ? await getTokenSupply(p.tokenContractId) : null;
+  const supply = p.tokenContractId ? await getTokenSupply(p.tokenContractId).catch(() => null) : null;
 
   return (
     <div className="space-y-6">
