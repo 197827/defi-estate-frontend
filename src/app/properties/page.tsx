@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { PropertyCard } from '@/components/property/PropertyCard';
 import { Button } from '@/components/ui/Button';
 import { listProperties } from '@/services/api';
@@ -13,6 +14,7 @@ export const dynamic = 'force-dynamic';
 const PAGE_SIZE = 12;
 
 export default function PropertiesPage() {
+  const t = useTranslations('Properties');
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -119,8 +121,8 @@ export default function PropertiesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">Properties</h1>
-        <p className="text-muted text-sm">Tokenized and upcoming listings.</p>
+        <h1 className="text-2xl font-semibold">{t('title')}</h1>
+        <p className="text-muted text-sm">{t('subtitle')}</p>
       </div>
 
       <form
@@ -159,9 +161,9 @@ export default function PropertiesPage() {
             className="border-border bg-surface text-foreground focus:ring-primary w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2"
           >
             <option value="">Any type</option>
-            {PROPERTY_TYPES.map((t) => (
-              <option key={t} value={t}>
-                {t}
+            {PROPERTY_TYPES.map((pt) => (
+              <option key={pt} value={pt}>
+                {pt}
               </option>
             ))}
           </select>
@@ -193,11 +195,11 @@ export default function PropertiesPage() {
       {loading ? (
         <p className="text-muted text-sm">Loading properties…</p>
       ) : !result ? (
-        <p className="text-muted text-sm">No properties listed yet.</p>
+        <p className="text-muted text-sm">{t('empty')}</p>
       ) : !result.ok ? (
-        <p className="text-danger text-sm">Could not reach the API: {result.message}</p>
+        <p className="text-danger text-sm">{t('apiError', { message: result.message })}</p>
       ) : result.data.items.length === 0 ? (
-        <p className="text-muted text-sm">No properties match your filters.</p>
+        <p className="text-muted text-sm">{t('empty')}</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {result.data.items.map((property) => (

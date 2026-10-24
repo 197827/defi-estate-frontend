@@ -1,11 +1,47 @@
-const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+const DEFAULT_LOCALE = 'en';
 
-export function formatUsdCents(cents: number): string {
-  return usd.format(cents / 100);
+function createUsdFormatter(locale: string): Intl.NumberFormat {
+  return new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' });
 }
 
-export function formatBps(bps: number): string {
-  return `${(bps / 100).toFixed(2)}%`;
+const usdFormatters = new Map<string, Intl.NumberFormat>();
+
+function getUsdFormatter(locale: string): Intl.NumberFormat {
+  let formatter = usdFormatters.get(locale);
+  if (!formatter) {
+    formatter = createUsdFormatter(locale);
+    usdFormatters.set(locale, formatter);
+  }
+  return formatter;
+}
+
+const percentFormatters = new Map<string, Intl.NumberFormat>();
+
+function getPercentFormatter(locale: string): Intl.NumberFormat {
+  let formatter = percentFormatters.get(locale);
+  if (!formatter) {
+    formatter = new Intl.NumberFormat(locale, {
+      style: 'percent',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    percentFormatters.set(locale, formatter);
+  }
+  return formatter;
+}
+
+export function formatUsdCents(cents: number, locale: string = DEFAULT_LOCALE): string {
+  return getUsdFormatter(locale).format(cents / 100);
+}
+
+export function formatBps(bps: number, locale: string = DEFAULT_LOCALE): string {
+  return getPercentFormatter(locale).format(bps / 10000);
+}
+
+export function dollarsToCents(dollars: number | string): number {
+  const value = typeof dollars === 'string' ? Number(dollars) : dollars;
+  if (!Number.isFinite(value)) return NaN;
+  return Math.round(value * 100);
 }
 
 export function shortenAddress(address: string, chars = 4): string {

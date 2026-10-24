@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Check, Copy, LogOut, Wallet } from 'lucide-react';
+import { isConnected, requestAccess } from '@stellar/freighter-api';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/Button';
 import { shortenAddress } from '@/lib/format';
 import { useWallet } from '@/components/wallet/WalletProvider';
 
 export function ConnectWallet() {
+  const t = useTranslations('wallet');
   const { address, connect, disconnect, error } = useWallet();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -102,7 +105,7 @@ export function ConnectWallet() {
       ) : (
         <Button variant="secondary" onClick={handleConnect}>
           <Wallet className="h-4 w-4" aria-hidden />
-          Connect wallet
+          {t('connect')}
         </Button>
       )}
     </div>

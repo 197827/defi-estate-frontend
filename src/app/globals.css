@@ -38,3 +38,48 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
 }
+
+/*
+ * Visible focus styles for keyboard users, using design tokens.
+ * Applies to all focusable elements unless they opt out with focus-visible:outline-none.
+ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Skip-to-content link: hidden until focused, then pinned to the top-left. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  border: 1px solid var(--color-primary);
+  border-radius: 0 0 var(--radius-card) 0;
+  transform: translateY(-150%);
+  transition: transform 150ms ease-in-out;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Visually hidden but available to assistive technology. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

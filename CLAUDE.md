@@ -16,6 +16,12 @@ The defi-estate web app (Next.js 16 App Router, React 19, Tailwind CSS 4). It re
 - **Contract IDs are data**: `src/shared/contracts/contracts.<network>.json`, never hardcoded.
 - Never commit `.env*` files.
 
+## End-to-end tests
+
+- E2E tests live in `e2e/` and are driven by Playwright (`playwright.config.ts`), which starts the app with `next start` against a mocked API.
+- Run them locally with `bun run test:e2e`. They also run in CI via the `e2e` job in `.github/workflows/ci.yml`, which uploads the report on failure.
+- When adding or changing a page or navigation flow, add or update the corresponding test in `e2e/`.
+
 ## Commit conventions
 
 Conventional Commits: `<type>(<scope>): <short lowercase summary>`. Scopes: `ui`, `properties`, `wallet`, `shared`, `ci`, `docs`.
