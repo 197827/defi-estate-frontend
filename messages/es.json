@@ -1,0 +1,172 @@
+{
+  "Metadata": {
+    "title": "defi-estate",
+    "description": "Invierte en bienes raíces tokenizados con transparencia y liquidez."
+  },
+  "Common": {
+    "appName": "defi-estate",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "search": "Buscar",
+    "submit": "Enviar",
+    "learnMore": "Saber más",
+    "comingSoon": "Próximamente",
+    "notFound": "No encontrado",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "Navigation": {
+    "home": "Inicio",
+    "properties": "Propiedades",
+    "invest": "Invertir",
+    "portfolio": "Portafolio",
+    "about": "Acerca de",
+    "dashboard": "Panel",
+    "connectWallet": "Conectar billetera",
+    "disconnect": "Desconectar",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar idioma"
+  },
+  "Languages": {
+    "en": "Inglés",
+    "es": "Español"
+  },
+  "Home": {
+    "heroTitle": "Invierte en bienes raíces tokenizados",
+    "heroSubtitle": "Accede a oportunidades inmobiliarias con transparencia y liquidez.",
+    "ctaPrimary": "Explorar propiedades",
+    "ctaSecondary": "Cómo funciona",
+    "featuredTitle": "Propiedades destacadas",
+    "featuredSubtitle": "Descubre nuestras oportunidades de inversión más recientes.",
+    "stats": {
+      "totalValue": "Valor total bloqueado",
+      "investors": "Inversores activos",
+      "properties": "Propiedades listadas",
+      "countries": "Países soportados"
+    }
+  },
+  "Properties": {
+    "title": "Propiedades",
+    "subtitle": "Explora las propiedades disponibles para invertir.",
+    "empty": "No hay propiedades disponibles en este momento.",
+    "filters": {
+      "title": "Filtros",
+      "location": "Ubicación",
+      "priceRange": "Rango de precio",
+      "type": "Tipo",
+      "all": "Todos"
+    },
+    "card": {
+      "price": "Precio",
+      "roi": "ROI estimado",
+      "occupancy": "Ocupación",
+      "funded": "Financiado",
+      "viewDetails": "Ver detalles"
+    },
+    "types": {
+      "residential": "Residencial",
+      "commercial": "Comercial",
+      "industrial": "Industrial",
+      "land": "Terreno"
+    }
+  },
+  "PropertyDetail": {
+    "overview": "Resumen",
+    "location": "Ubicación",
+    "financials": "Finanzas",
+    "documents": "Documentos",
+    "investNow": "Invertir ahora",
+    "minimumInvestment": "Inversión mínima",
+    "expectedReturn": "Retorno esperado",
+    "duration": "Duración",
+    "months": "{count, plural, one {# mes} other {# meses}}",
+    "tokenPrice": "Precio del token",
+    "tokensAvailable": "Tokens disponibles",
+    "description": "Descripción"
+  },
+  "Invest": {
+    "title": "Invertir",
+    "amount": "Monto",
+    "amountPlaceholder": "Ingresa el monto a invertir",
+    "estimatedTokens": "Tokens estimados",
+    "estimatedReturn": "Retorno estimado",
+    "confirmInvestment": "Confirmar inversión",
+    "success": "Inversión realizada con éxito",
+    "failure": "No se pudo completar la inversión",
+    "insufficientFunds": "Fondos insuficientes",
+    "connectPrompt": "Conecta tu billetera para invertir"
+  },
+  "Portfolio": {
+    "title": "Mi portafolio",
+    "subtitle": "Revisa tus inversiones y su rendimiento.",
+    "empty": "Aún no tienes inversiones.",
+    "totalInvested": "Total invertido",
+    "currentValue": "Valor actual",
+    "totalReturn": "Retorno total",
+    "activeInvestments": "Inversiones activas",
+    "table": {
+      "property": "Propiedad",
+      "invested": "Invertido",
+      "value": "Valor",
+      "return": "Retorno",
+      "status": "Estado"
+    },
+    "status": {
+      "active": "Activa",
+      "pending": "Pendiente",
+      "completed": "Completada"
+    }
+  },
+  "Dashboard": {
+    "title": "Panel",
+    "welcome": "Bienvenido, {name}",
+    "summary": "Resumen",
+    "recentActivity": "Actividad reciente",
+    "noActivity": "No hay actividad reciente."
+  },
+  "About": {
+    "title": "Acerca de",
+    "mission": "Nuestra misión",
+    "missionText": "Democratizar el acceso a la inversión inmobiliaria mediante la tokenización.",
+    "team": "Equipo",
+    "contact": "Contacto"
+  },
+  "Wallet": {
+    "connect": "Conectar billetera",
+    "connecting": "Conectando...",
+    "connected": "Conectada",
+    "disconnect": "Desconectar",
+    "address": "Dirección",
+    "network": "Red",
+    "wrongNetwork": "Red incorrecta",
+    "switchNetwork": "Cambiar red"
+  },
+  "Errors": {
+    "generic": "Algo salió mal. Por favor, inténtalo de nuevo.",
+    "network": "Error de red. Verifica tu conexión.",
+    "walletNotConnected": "Billetera no conectada.",
+    "invalidAmount": "Monto inválido.",
+    "required": "Este campo es obligatorio.",
+    "notFoundTitle": "Página no encontrada",
+    "notFoundDescription": "La página que buscas no existe.",
+    "goHome": "Ir al inicio"
+  },
+  "Footer": {
+    "rights": "Todos los derechos reservados.",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "contact": "Contacto"
+  },
+  "Format": {
+    "currency": "{value, number, ::currency/USD}",
+    "percent": "{value, number, ::percent}"
+  }
+}
