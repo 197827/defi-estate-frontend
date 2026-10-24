@@ -2,8 +2,10 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { MapPin } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
+import { ProgressBar } from '@/components/ui/ProgressBar';
 import { getProperty } from '@/services/api';
 import { formatBps, formatUsdCents, formatNumber } from '@/lib/format';
+import { getTokenSupply } from '@/lib/soroban';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,6 +23,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
     [t('totalShares'), formatNumber(p.totalShares)],
     [t('expectedYield'), formatBps(p.expectedYieldBps)],
   ];
+
+  const supply = p.tokenContractId ? await getTokenSupply(p.tokenContractId) : null;
 
   return (
     <div className="space-y-6">
@@ -43,7 +47,32 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           </Card>
         ))}
       </div>
+      {p.tokenContractId && (
+        <Card>
+          <p className="text-muted text-xs uppercase">Funding progress</p>
+          {supply && supply.ok ? (
+            <FundingProgress totalSupply={supply.data.totalSupply} maxSupply={supply.data.maxSupply} />
+          ) : (
+            <p className="text-muted mt-1 text-sm">Funding progress is currently unavailable.</p>
+          )}
+        </Card>
+      )}
       {p.description && <p className="text-muted max-w-3xl">{p.description}</p>}
+    </div>
+  );
+}
+
+function FundingProgress({ totalSupply, maxSupply }: { totalSupply: bigint; maxSupply: bigint }) {
+  const sold = totalSupply;
+  const percent = maxSupply > 0n ? Number((sold * 10000n) / maxSupply) / 100 : 0;
+
+  return (
+    <div className="mt-2 space-y-2">
+      <ProgressBar value={percent} />
+      <div className="text-muted flex justify-between text-sm">
+        <span>{sold.toLocaleString('en-US')} shares sold</span>
+        <span>{percent.toFixed(2)}% funded</span>
+      </div>
     </div>
   );
 }

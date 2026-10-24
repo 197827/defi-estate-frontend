@@ -79,6 +79,13 @@ export function Header() {
           >
             {t('properties')}
           </Link>
+          <Link
+            href={`/${locale}/portfolio`}
+            className="text-muted hover:text-text focus-visible:ring-primary rounded-md focus-visible:ring-2 focus-visible:outline-none"
+            onClick={() => setMenuOpen(false)}
+          >
+            Portfolio
+          </Link>
 
           <div className="flex items-center gap-2">
             <label htmlFor="locale-switcher" className="sr-only">

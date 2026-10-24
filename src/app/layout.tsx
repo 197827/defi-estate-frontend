@@ -5,6 +5,7 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { routing } from '@/i18n/routing';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
+import { WalletProvider } from '@/components/wallet/WalletProvider';
 
 export const metadata: Metadata = {
   title: 'defi-estate',
@@ -43,10 +44,12 @@ export default async function LocaleLayout({
           {t('skipToContent')}
         </a>
         <NextIntlClientProvider messages={messages}>
-          <Header />
-          <main id="main-content" className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-            {children}
-          </main>
+          <WalletProvider>
+            <Header />
+            <main id="main-content" className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+              {children}
+            </main>
+          </WalletProvider>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -4,6 +4,13 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
 export type Result<T> = { ok: true; data: T } | { ok: false; message: string };
 
+export interface ListPropertiesOptions {
+  page?: number;
+  city?: string;
+  type?: string;
+  minYieldBps?: number;
+}
+
 async function request<T>(path: string): Promise<Result<T>> {
   try {
     const res = await fetch(`${API_URL}${path}`, { cache: 'no-store' });
@@ -16,8 +23,16 @@ async function request<T>(path: string): Promise<Result<T>> {
   }
 }
 
-export function listProperties(page = 1): Promise<Result<Paginated<Property>>> {
-  return request(`/properties?page=${page}`);
+export function listProperties(
+  options: ListPropertiesOptions = {},
+): Promise<Result<Paginated<Property>>> {
+  const { page = 1, city, type, minYieldBps } = options;
+  const params = new URLSearchParams();
+  params.set('page', String(page));
+  if (city !== undefined && city !== '') params.set('city', city);
+  if (type !== undefined && type !== '') params.set('type', type);
+  if (minYieldBps !== undefined) params.set('minYieldBps', String(minYieldBps));
+  return request(`/properties?${params.toString()}`);
 }
 
 export function getProperty(id: string): Promise<Result<Property>> {
