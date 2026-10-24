@@ -14,6 +14,9 @@ export function Header() {
           <Link href="/properties" className="text-muted hover:text-text">
             Properties
           </Link>
+          <Link href="/portfolio" className="text-muted hover:text-text">
+            Portfolio
+          </Link>
           <ConnectWallet />
         </nav>
       </div>
