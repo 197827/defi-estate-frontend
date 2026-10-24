@@ -22,6 +22,38 @@ Shared components live in `src/components/ui`:
 - `Button` with `primary` and `secondary` variants
 - `Card`
 - `Skeleton`
+- `Toast` with `Toaster` provider and `useToast` hook
+
+### Toast
+
+Toasts are short-lived success, error and info messages, for example after connecting a wallet or claiming yield. Wrap the app in `Toaster` (once, near the root) and call `useToast` from any client component inside it.
+
+```tsx
+const { toast } = useToast();
+
+toast({ title: "Wallet connected", variant: "success" });
+toast({ title: "Connection failed", description: error.message, variant: "error" });
+```
+
+Variants:
+
+| Variant   | Icon (lucide)    | Token usage                          |
+| --------- | ---------------- | ------------------------------------ |
+| `success` | `CircleCheck`    | `text-primary` accent                |
+| `error`   | `CircleAlert`    | `text-danger` accent                 |
+| `info`    | `Info`           | `text-muted` accent                  |
+
+All variants use `bg-surface-raised`, `border-border`, `text-text` and `rounded-card`; icons are decorative (`aria-hidden`).
+
+Behaviour:
+
+- Toasts auto-dismiss after 5 seconds.
+- Each toast has a close button that is keyboard focusable, so it can be dismissed with `Enter`/`Space` (or `Escape` while focused).
+- The toast region uses `aria-live="polite"` (and `role="status"`) so screen readers announce new toasts; error toasts use `aria-live="assertive"` for immediate announcement.
+
+Where it is used:
+
+- `src/components/wallet/ConnectWallet.tsx` — connection errors
 
 ### Skeleton
 

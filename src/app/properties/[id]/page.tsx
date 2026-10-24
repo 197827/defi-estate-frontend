@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { MapPin } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { YieldCalculator } from '@/components/property/YieldCalculator';
 import { getProperty } from '@/services/api';
 import { formatBps, formatUsdCents, formatNumber } from '@/lib/format';
 import { getTokenSupply } from '@/lib/soroban';
@@ -95,6 +96,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           )}
         </Card>
       )}
+      <YieldCalculator
+        sharePriceUsdCents={p.sharePriceUsdCents}
+        expectedYieldBps={p.expectedYieldBps}
+        availableShares={p.totalShares}
+      />
       {p.description && <p className="text-muted max-w-3xl">{p.description}</p>}
     </div>
   );
